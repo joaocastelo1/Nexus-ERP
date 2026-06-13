@@ -38,7 +38,8 @@ let db = {
     { _id: 'log-1', event: 'lead.converted', source: 'crm', target: 'erp', status: 'success', details: { leadId: 'lead-5', clientId: 'client-1' }, sourceId: 'lead-5', targetId: 'client-1', createdAt: now() },
     { _id: 'log-2', event: 'sale.closed', source: 'crm', target: 'erp', status: 'success', details: { saleId: 'sale-1' }, sourceId: 'sale-1', targetId: null, createdAt: now() },
     { _id: 'log-3', event: 'stock.updated', source: 'erp', target: 'crm', status: 'success', details: { productId: 'prod-1', previousQuantity: 50, newQuantity: 49 }, sourceId: 'prod-1', targetId: null, createdAt: now() },
-  ]
+  ],
+  interactions: []
 };
 
 const dataStore = {
@@ -146,6 +147,18 @@ const dataStore = {
     return log;
   },
 
+  // --- INTERACTIONS ---
+  getInteractions: (clientId) => {
+    let result = db.interactions;
+    if (clientId) result = result.filter(i => i.clientId === clientId);
+    return result;
+  },
+  createInteraction: (data) => {
+    const interaction = { _id: uuidv4(), ...data, createdAt: now() };
+    db.interactions.push(interaction);
+    return interaction;
+  },
+
   // --- DASHBOARD ---
   getDashboardData: () => {
     const leadsByStatus = Object.entries(
@@ -199,16 +212,26 @@ const dataStore = {
     }));
   },
 
-  getFinanceSummary: () => {
+  getFinanceSummary: (period) => {
+    let filtered = db.transactions;
+    if (period && period !== 'all') {
+      const now = new Date();
+      let start;
+      if (period === 'week') { start = new Date(now); start.setDate(start.getDate() - 7); }
+      else if (period === 'month') { start = new Date(now); start.setMonth(start.getMonth() - 1); }
+      else if (period === 'year') { start = new Date(now); start.setFullYear(start.getFullYear() - 1); }
+      if (start) filtered = filtered.filter(t => new Date(t.date) >= start);
+    }
+
     const incomes = Object.entries(
-      db.transactions.filter(t => t.type === 'income').reduce((acc, t) => {
+      filtered.filter(t => t.type === 'income').reduce((acc, t) => {
         acc[t.category] = (acc[t.category] || 0) + t.amount;
         return acc;
       }, {})
     ).map(([_id, total]) => ({ _id, total }));
 
     const expenses = Object.entries(
-      db.transactions.filter(t => t.type === 'expense').reduce((acc, t) => {
+      filtered.filter(t => t.type === 'expense').reduce((acc, t) => {
         acc[t.category] = (acc[t.category] || 0) + t.amount;
         return acc;
       }, {})

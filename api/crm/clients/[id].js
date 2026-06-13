@@ -9,7 +9,9 @@ module.exports = function handler(req, res) {
     if (req.method === 'GET') {
       const client = dataStore.getClientById(id);
       if (!client) return res.status(404).json({ message: 'Cliente não encontrado' });
-      return res.json({ client, interactions: [], purchases: [] });
+      const interactions = dataStore.getInteractions(id);
+      const purchases = dataStore.getSales().filter(s => s.clientId === id);
+      return res.json({ client, interactions, purchases });
     }
     if (req.method === 'PUT') {
       const client = dataStore.updateClient(id, req.body);

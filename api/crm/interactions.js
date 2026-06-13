@@ -6,10 +6,12 @@ module.exports = function handler(req, res) {
 
   try {
     if (req.method === 'GET') {
-      return res.json([]);
+      const { clientId } = req.query;
+      return res.json(dataStore.getInteractions(clientId));
     }
     if (req.method === 'POST') {
-      return res.status(201).json({ message: 'Interação registrada' });
+      const interaction = dataStore.createInteraction(req.body);
+      return res.status(201).json(interaction);
     }
     return res.status(405).json({ message: 'Method not allowed' });
   } catch (err) {

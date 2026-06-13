@@ -15,7 +15,7 @@ module.exports = function handler(req, res) {
           return acc;
         }, {})).map(([key, count]) => ({ _id: key, count })),
         totalClients: clients.filter(c => c.status === 'active').length,
-        totalInteractions: 0,
+        totalInteractions: dataStore.getInteractions().length,
         pipelineValue: leads.filter(l => !['closed_won', 'closed_lost'].includes(l.stage)).reduce((s, l) => s + (l.value || 0), 0)
       });
     }
