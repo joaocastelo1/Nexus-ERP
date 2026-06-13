@@ -1,0 +1,16 @@
+{
+  "name": "nexus-erp-crm",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Sistema integrado ERP + CRM — Full Stack com React, TypeScript, Node.js e Express",
+  "scripts": {
+    "dev": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend install --no-audit --no-fund && npm --prefix frontend run build",
+    "start": "npm --prefix backend run start",
+    "vercel-build": "npm run build",
+    "seed": "node api/_seed.js",
+    "lint": "npm --prefix frontend run lint"
+  },
+  "dependencies": {}
+}
