@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "installCommand": "npm install --no-audit --no-fund",
-  "buildCommand": "npm run vercel-build",
+  "installCommand": "npm --prefix frontend install --no-audit --no-fund",
+  "buildCommand": "npm --prefix frontend run build",
   "outputDirectory": "frontend/dist",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
