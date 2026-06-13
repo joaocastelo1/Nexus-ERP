@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "rootDirectory": ".",
   "installCommand": "npm install --no-audit --no-fund",
   "buildCommand": "npm run vercel-build",
   "outputDirectory": "frontend/dist",
