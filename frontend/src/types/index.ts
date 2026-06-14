@@ -121,7 +121,7 @@ export interface DashboardData {
   clients: { total: number; active: number }
   sales: { total: number; revenue: number; expenses: number; profit: number }
   products: { total: number; lowStock: number }
-  revenueByMonth: { _id: number; total: number }[]
-  salesByMonth: { _id: number; count: number; total: number }[]
+  revenueByMonth: { _id: string; total: number; count?: number }[]
+  salesByMonth: { _id: string; count: number; total: number }[]
   topClients: { _id: string; name: string; totalSpent: number; totalPurchases: number }[]
 }

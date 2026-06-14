@@ -168,14 +168,19 @@ const dataStore = {
       }, {})
     ).map(([key, count]) => ({ _id: key, count }));
 
+    const months = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+
     const revenueByMonth = Array.from({ length: 6 }, (_, i) => {
       const d = new Date();
       d.setMonth(d.getMonth() - (5 - i));
-      const month = d.toLocaleString('pt-BR', { month: 'short' });
+      const monthIndex = d.getMonth();
       const total = db.sales
-        .filter(s => new Date(s.createdAt).getMonth() === d.getMonth())
+        .filter(s => new Date(s.createdAt).getMonth() === monthIndex && new Date(s.createdAt).getFullYear() === d.getFullYear())
         .reduce((s, sale) => s + sale.total, 0);
-      return { _id: month, total };
+      const count = db.sales
+        .filter(s => new Date(s.createdAt).getMonth() === monthIndex && new Date(s.createdAt).getFullYear() === d.getFullYear())
+        .length;
+      return { _id: months[monthIndex], total, count };
     });
 
     const totalIncome = db.transactions.filter(t => t.type === 'income').reduce((s, t) => s + t.amount, 0);
@@ -185,6 +190,8 @@ const dataStore = {
       .map(c => ({ _id: c._id, name: c.name, totalPurchases: c.totalPurchases, totalSpent: c.totalSpent }))
       .sort((a, b) => b.totalSpent - a.totalSpent)
       .slice(0, 5);
+
+    const salesByMonth = revenueByMonth.map(r => ({ _id: r._id, count: r.count, total: r.total }));
 
     return {
       leadsByStatus,
@@ -197,7 +204,7 @@ const dataStore = {
       },
       products: { total: db.products.length, lowStock: db.products.filter(p => p.quantity <= p.minStock).length },
       revenueByMonth,
-      salesByMonth: revenueByMonth,
+      salesByMonth,
       topClients
     };
   },
