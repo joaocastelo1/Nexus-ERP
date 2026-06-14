@@ -52,4 +52,6 @@ export const integrationApi = {
   getDashboardData: () => api.get<DashboardData>('/integration/dashboard').then(r => r.data)
 }
 
+export const resetData = () => api.post('/reset').then(r => r.data)
+
 export default api

@@ -16,6 +16,12 @@ app.use('/api/crm', crmRoutes);
 app.use('/api/erp', erpRoutes);
 app.use('/api/integration', integrationRoutes);
 
+app.post('/api/reset', (req, res) => {
+  const dataStore = require('./config/dataStore');
+  dataStore.resetData();
+  res.json({ message: 'Dados redefinidos com sucesso' });
+});
+
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'BizFlow API Running', version: '2.0.0' });
 });

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { integrationApi } from '../services/api'
+import { integrationApi, resetData } from '../services/api'
 import type { DashboardData } from '../types'
-import { Users, UserCheck, ShoppingCart, Package, TrendingUp, TrendingDown, DollarSign } from 'lucide-react'
+import { Users, UserCheck, ShoppingCart, Package, TrendingUp, TrendingDown, DollarSign, RotateCcw } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import Loading from '../components/ui/Loading'
 
@@ -26,6 +26,17 @@ export default function Dashboard() {
       console.error(err)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleReset = async () => {
+    if (!confirm('Tem certeza? Todos os dados serão redefinidos para o padrão.')) return
+    try {
+      await resetData()
+      await loadData()
+      alert('Dados redefinidos com sucesso!')
+    } catch (err) {
+      alert('Erro ao redefinir dados')
     }
   }
 
@@ -54,6 +65,9 @@ export default function Dashboard() {
           <h1 className="text-2xl font-bold text-slate-800">Dashboard</h1>
           <p className="text-slate-500">Visão geral do sistema</p>
         </div>
+        <button onClick={handleReset} className="btn btn-secondary flex items-center gap-2 text-sm">
+          <RotateCcw size={16} /> Redefinir Dados
+        </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
