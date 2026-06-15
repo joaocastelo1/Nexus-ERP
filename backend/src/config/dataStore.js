@@ -1,4 +1,7 @@
+const mongoose = require('mongoose');
 const { randomUUID: uuidv4 } = require('crypto');
+const dbConfig = require('./database');
+const models = require('../models');
 
 const seedData = () => ({
   leads: [
@@ -9,16 +12,16 @@ const seedData = () => ({
     { _id: 'lead-5', name: 'Carlos Ferreira', email: 'carlos@email.com', phone: '(11) 55555-5555', company: 'StartUp Hub', status: 'won', stage: 'closed_won', value: 50000, probability: 100, source: 'website', notes: 'Cliente convertido', crmClientId: 'client-1', expectedCloseDate: null, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
   ],
   clients: [
-    { _id: 'client-1', name: 'Tech Solutions', email: 'contato@techsolutions.com', phone: '(11) 99999-0000', document: '12.345.678/0001-90', documentType: 'cnpj', address: { street: 'Av. Paulista, 1000', city: 'São Paulo', state: 'SP', zipCode: '01310-100', country: 'Brasil' }, status: 'active', score: 85, totalPurchases: 3, totalSpent: 15000, crmLeadId: 'lead-5', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
+    { _id: 'client-1', name: 'Tech Solutions', email: 'contato@techsolutions.com', phone: '(11) 99999-0000', document: '12.345.678/0001-90', documentType: 'cnpj', address: { street: 'Av. Paulista, 1000', city: 'São Paulo', state: 'SP', zipCode: '01310-100', country: 'Brasil' }, status: 'active', score: 85, totalPurchases: 3, totalSpent: 15000, crmLeadId: null, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
     { _id: 'client-2', name: 'Digital Corp', email: 'contato@digitalcorp.com', phone: '(11) 88888-0000', document: '98.765.432/0001-10', documentType: 'cnpj', address: { street: 'Rua Augusta, 500', city: 'São Paulo', state: 'SP', zipCode: '01304-000', country: 'Brasil' }, status: 'active', score: 72, totalPurchases: 5, totalSpent: 28000, crmLeadId: null, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
     { _id: 'client-3', name: 'Innovate Ltda', email: 'contato@innovateltda.com', phone: '(11) 77777-0000', document: '11.222.333/0001-44', documentType: 'cnpj', address: { street: 'Alameda Santos, 200', city: 'São Paulo', state: 'SP', zipCode: '01418-000', country: 'Brasil' }, status: 'active', score: 60, totalPurchases: 2, totalSpent: 8500, crmLeadId: null, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
   ],
   products: [
-    { _id: 'prod-1', name: 'Software ERP Completo', sku: 'ERP-001', description: 'Sistema de gestão empresarial completo com módulos financeiro, estoque e vendas', category: 'Software', costPrice: 1000, salePrice: 2500, quantity: 50, minStock: 10, unit: 'un', active: true, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
+    { _id: 'prod-1', name: 'Software ERP Completo', sku: 'ERP-001', description: 'Sistema de gestão empresarial completo', category: 'Software', costPrice: 1000, salePrice: 2500, quantity: 50, minStock: 10, unit: 'un', active: true, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
     { _id: 'prod-2', name: 'Licença Anual ERP', sku: 'LIC-001', description: 'Licença de uso anual do sistema ERP', category: 'Licença', costPrice: 500, salePrice: 1200, quantity: 100, minStock: 20, unit: 'un', active: true, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
-    { _id: 'prod-3', name: 'Suporte Premium 24/7', sku: 'SUP-001', description: 'Suporte técnico especializado com SLA de 2 horas', category: 'Serviço', costPrice: 200, salePrice: 500, quantity: 30, minStock: 5, unit: 'un', active: true, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
-    { _id: 'prod-4', name: 'Treinamento Presencial', sku: 'TRE-001', description: 'Capacitação técnica presencial para equipe', category: 'Serviço', costPrice: 300, salePrice: 800, quantity: 20, minStock: 5, unit: 'un', active: true, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
-    { _id: 'prod-5', name: 'Módulo CRM Avançado', sku: 'CRM-001', description: 'Módulo adicional de CRM com automação de marketing', category: 'Software', costPrice: 800, salePrice: 1800, quantity: 3, minStock: 5, unit: 'un', active: true, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
+    { _id: 'prod-3', name: 'Suporte Premium 24/7', sku: 'SUP-001', description: 'Suporte técnico especializado', category: 'Serviço', costPrice: 200, salePrice: 500, quantity: 30, minStock: 5, unit: 'un', active: true, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
+    { _id: 'prod-4', name: 'Treinamento Presencial', sku: 'TRE-001', description: 'Capacitação técnica presencial', category: 'Serviço', costPrice: 300, salePrice: 800, quantity: 20, minStock: 5, unit: 'un', active: true, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
+    { _id: 'prod-5', name: 'Módulo CRM Avançado', sku: 'CRM-001', description: 'Módulo adicional de CRM', category: 'Software', costPrice: 800, salePrice: 1800, quantity: 3, minStock: 5, unit: 'un', active: true, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
   ],
   sales: [
     { _id: 'sale-1', clientId: 'client-1', clientName: 'Tech Solutions', items: [{ productId: 'prod-1', productName: 'Software ERP Completo', quantity: 1, unitPrice: 2500, total: 2500 }], subtotal: 2500, tax: 250, total: 2750, status: 'delivered', invoiceNumber: 'NF00000001', paymentMethod: 'transfer', notes: '', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
@@ -41,212 +44,226 @@ const seedData = () => ({
 });
 
 let db = seedData();
+let connected = false;
+
+async function ensureConnection() {
+  if (connected) return true;
+  try {
+    connected = await dbConfig();
+    if (connected) try { await syncFromMongo(); } catch {}
+  } catch {
+    connected = false;
+  }
+  return connected;
+}
+
+async function syncFromMongo() {
+  try {
+    const [leads, clients, products, sales, transactions, syncLogs, interactions] = await Promise.all([
+      models.Lead.find().lean(), models.Client.find().lean(), models.Product.find().lean(),
+      models.Sale.find().lean(), models.Transaction.find().lean(), models.SyncLog.find().lean(),
+      models.Interaction.find().lean()
+    ]);
+    if (leads.length) db.leads = leads;
+    if (clients.length) db.clients = clients;
+    if (products.length) db.products = products;
+    if (sales.length) db.sales = sales;
+    if (transactions.length) db.transactions = transactions;
+    if (syncLogs.length) db.syncLogs = syncLogs;
+    if (interactions.length) db.interactions = interactions;
+  } catch { /* silent fallback to in-memory */ }
+}
+
+function wrap(fn) {
+  return async (...args) => {
+    await ensureConnection();
+    return fn(...args);
+  };
+}
 
 const dataStore = {
-  resetData: () => { db = seedData(); return true; },
+  resetData: async () => {
+    db = seedData();
+    if (connected) {
+      await Promise.all([
+        models.Lead.deleteMany({}), models.Client.deleteMany({}), models.Product.deleteMany({}),
+        models.Sale.deleteMany({}), models.Transaction.deleteMany({}), models.SyncLog.deleteMany({}),
+        models.Interaction.deleteMany({})
+      ]);
+      const data = seedData();
+      await Promise.all([
+        models.Lead.insertMany(data.leads),
+        models.Client.insertMany(data.clients),
+        models.Product.insertMany(data.products),
+        models.Sale.insertMany(data.sales),
+        models.Transaction.insertMany(data.transactions),
+        models.SyncLog.insertMany(data.syncLogs),
+      ]);
+    }
+    return true;
+  },
 
-  // --- LEADS ---
-  getLeads: () => db.leads,
-  getLeadById: (id) => db.leads.find(l => l._id === id),
-  createLead: (data) => {
+  getLeads: wrap(() => db.leads),
+  getLeadById: wrap((id) => db.leads.find(l => l._id === id)),
+  createLead: wrap((data) => {
     const lead = { _id: uuidv4(), stage: 'lead', probability: 10, value: 0, status: 'new', source: 'other', ...data, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
     db.leads.push(lead);
+    if (connected) models.Lead.create(lead).catch(() => {});
     return lead;
-  },
-  updateLead: (id, data) => {
-    const index = db.leads.findIndex(l => l._id === id);
-    if (index !== -1) {
-      db.leads[index] = { ...db.leads[index], ...data, updatedAt: new Date().toISOString() };
-      return db.leads[index];
-    }
-    return null;
-  },
-  deleteLead: (id) => { db.leads = db.leads.filter(l => l._id !== id); },
+  }),
+  updateLead: wrap((id, data) => {
+    const idx = db.leads.findIndex(l => l._id === id);
+    if (idx === -1) return null;
+    db.leads[idx] = { ...db.leads[idx], ...data, updatedAt: new Date().toISOString() };
+    if (connected) models.Lead.updateOne({ _id: id }, { $set: data }).catch(() => {});
+    return db.leads[idx];
+  }),
+  deleteLead: wrap((id) => {
+    db.leads = db.leads.filter(l => l._id !== id);
+    if (connected) models.Lead.deleteOne({ _id: id }).catch(() => {});
+  }),
 
-  // --- CLIENTS ---
-  getClients: () => db.clients,
-  getClientById: (id) => db.clients.find(c => c._id === id),
-  createClient: (data) => {
+  getClients: wrap(() => db.clients),
+  getClientById: wrap((id) => db.clients.find(c => c._id === id)),
+  createClient: wrap((data) => {
     const client = { _id: uuidv4(), score: Math.floor(Math.random() * 100), totalPurchases: 0, totalSpent: 0, status: 'active', ...data, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
     db.clients.push(client);
+    if (connected) models.Client.create(client).catch(() => {});
     return client;
-  },
-  updateClient: (id, data) => {
-    const index = db.clients.findIndex(c => c._id === id);
-    if (index !== -1) {
-      db.clients[index] = { ...db.clients[index], ...data, updatedAt: new Date().toISOString() };
-      return db.clients[index];
-    }
-    return null;
-  },
-  deleteClient: (id) => { db.clients = db.clients.filter(c => c._id !== id); },
+  }),
+  updateClient: wrap((id, data) => {
+    const idx = db.clients.findIndex(c => c._id === id);
+    if (idx === -1) return null;
+    db.clients[idx] = { ...db.clients[idx], ...data, updatedAt: new Date().toISOString() };
+    if (connected) models.Client.updateOne({ _id: id }, { $set: data }).catch(() => {});
+    return db.clients[idx];
+  }),
+  deleteClient: wrap((id) => {
+    db.clients = db.clients.filter(c => c._id !== id);
+    if (connected) models.Client.deleteOne({ _id: id }).catch(() => {});
+  }),
 
-  // --- PRODUCTS ---
-  getProducts: () => db.products,
-  getProductById: (id) => db.products.find(p => p._id === id),
-  createProduct: (data) => {
+  getProducts: wrap(() => db.products),
+  getProductById: wrap((id) => db.products.find(p => p._id === id)),
+  createProduct: wrap((data) => {
     const product = { _id: uuidv4(), active: true, unit: 'un', minStock: 5, quantity: 0, ...data, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
     db.products.push(product);
+    if (connected) models.Product.create(product).catch(() => {});
     return product;
-  },
-  updateProduct: (id, data) => {
-    const index = db.products.findIndex(p => p._id === id);
-    if (index !== -1) {
-      db.products[index] = { ...db.products[index], ...data, updatedAt: new Date().toISOString() };
-      return db.products[index];
-    }
-    return null;
-  },
-  deleteProduct: (id) => { db.products = db.products.filter(p => p._id !== id); },
+  }),
+  updateProduct: wrap((id, data) => {
+    const idx = db.products.findIndex(p => p._id === id);
+    if (idx === -1) return null;
+    db.products[idx] = { ...db.products[idx], ...data, updatedAt: new Date().toISOString() };
+    if (connected) models.Product.updateOne({ _id: id }, { $set: data }).catch(() => {});
+    return db.products[idx];
+  }),
+  deleteProduct: wrap((id) => {
+    db.products = db.products.filter(p => p._id !== id);
+    if (connected) models.Product.deleteOne({ _id: id }).catch(() => {});
+  }),
 
-  // --- SALES ---
-  getSales: () => db.sales,
-  getSaleById: (id) => db.sales.find(s => s._id === id),
-  createSale: (data) => {
+  getSales: wrap(() => db.sales),
+  getSaleById: wrap((id) => db.sales.find(s => s._id === id)),
+  createSale: wrap((data) => {
     const invoiceNumber = 'NF' + Date.now().toString().slice(-8);
     const sale = { _id: uuidv4(), invoiceNumber, status: 'confirmed', ...data, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
     db.sales.push(sale);
     const client = db.clients.find(c => c._id === data.clientId);
-    if (client) {
-      client.totalPurchases += 1;
-      client.totalSpent += data.total;
-    }
+    if (client) { client.totalPurchases += 1; client.totalSpent += data.total; }
+    if (connected) models.Sale.create(sale).catch(() => {});
     return sale;
-  },
-  updateSaleStatus: (id, status) => {
-    const index = db.sales.findIndex(s => s._id === id);
-    if (index !== -1) {
-      db.sales[index] = { ...db.sales[index], status, updatedAt: new Date().toISOString() };
-      return db.sales[index];
-    }
-    return null;
-  },
+  }),
+  updateSaleStatus: wrap((id, status) => {
+    const idx = db.sales.findIndex(s => s._id === id);
+    if (idx === -1) return null;
+    db.sales[idx] = { ...db.sales[idx], status, updatedAt: new Date().toISOString() };
+    if (connected) models.Sale.updateOne({ _id: id }, { $set: { status } }).catch(() => {});
+    return db.sales[idx];
+  }),
 
-  // --- TRANSACTIONS ---
-  getTransactions: (filters = {}) => {
+  getTransactions: wrap((filters = {}) => {
     let txs = db.transactions;
     if (filters.type) txs = txs.filter(t => t.type === filters.type);
     return txs;
-  },
-  createTransaction: (data) => {
-    const transaction = { _id: uuidv4(), ...data, createdAt: new Date().toISOString() };
-    db.transactions.push(transaction);
-    return transaction;
-  },
+  }),
+  createTransaction: wrap((data) => {
+    const tx = { _id: uuidv4(), ...data, createdAt: new Date().toISOString() };
+    db.transactions.push(tx);
+    if (connected) models.Transaction.create(tx).catch(() => {});
+    return tx;
+  }),
 
-  // --- SYNC LOGS ---
-  getSyncLogs: () => db.syncLogs,
-  createSyncLog: (data) => {
+  getSyncLogs: wrap(() => db.syncLogs),
+  createSyncLog: wrap((data) => {
     const log = { _id: uuidv4(), ...data, createdAt: new Date().toISOString() };
     db.syncLogs.unshift(log);
     if (db.syncLogs.length > 50) db.syncLogs.pop();
+    if (connected) models.SyncLog.create(log).catch(() => {});
     return log;
-  },
+  }),
 
-  // --- INTERACTIONS ---
-  getInteractions: (clientId) => {
-    let result = db.interactions;
-    if (clientId) result = result.filter(i => i.clientId === clientId);
-    return result;
-  },
-  createInteraction: (data) => {
+  getInteractions: wrap((clientId) => {
+    let r = db.interactions;
+    if (clientId) r = r.filter(i => i.clientId === clientId);
+    return r;
+  }),
+  createInteraction: wrap((data) => {
     const interaction = { _id: uuidv4(), ...data, createdAt: new Date().toISOString() };
     db.interactions.push(interaction);
+    if (connected) models.Interaction.create(interaction).catch(() => {});
     return interaction;
-  },
+  }),
 
-  // --- DASHBOARD ---
-  getDashboardData: () => {
+  getDashboardData: wrap(() => {
     const leadsByStatus = Object.entries(
-      db.leads.reduce((acc, lead) => {
-        acc[lead.status] = (acc[lead.status] || 0) + 1;
-        return acc;
-      }, {})
+      db.leads.reduce((acc, lead) => { acc[lead.status] = (acc[lead.status] || 0) + 1; return acc; }, {})
     ).map(([key, count]) => ({ _id: key, count }));
-
     const months = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
     const revenueByMonth = Array.from({ length: 6 }, (_, i) => {
-      const d = new Date();
-      d.setMonth(d.getMonth() - (5 - i));
-      const monthIndex = d.getMonth();
-      const total = db.sales
-        .filter(s => new Date(s.createdAt).getMonth() === monthIndex && new Date(s.createdAt).getFullYear() === d.getFullYear())
-        .reduce((s, sale) => s + sale.total, 0);
-      const count = db.sales
-        .filter(s => new Date(s.createdAt).getMonth() === monthIndex && new Date(s.createdAt).getFullYear() === d.getFullYear())
-        .length;
-      return { _id: months[monthIndex], total, count };
+      const d = new Date(); d.setMonth(d.getMonth() - (5 - i));
+      const idx = d.getMonth();
+      const total = db.sales.filter(s => new Date(s.createdAt).getMonth() === idx && new Date(s.createdAt).getFullYear() === d.getFullYear()).reduce((s, sale) => s + sale.total, 0);
+      const count = db.sales.filter(s => new Date(s.createdAt).getMonth() === idx && new Date(s.createdAt).getFullYear() === d.getFullYear()).length;
+      return { _id: months[idx], total, count };
     });
-
     const totalIncome = db.transactions.filter(t => t.type === 'income').reduce((s, t) => s + t.amount, 0);
     const totalExpense = db.transactions.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0);
-
-    const topClients = db.clients
-      .map(c => ({ _id: c._id, name: c.name, totalPurchases: c.totalPurchases, totalSpent: c.totalSpent }))
-      .sort((a, b) => b.totalSpent - a.totalSpent)
-      .slice(0, 5);
-
+    const topClients = db.clients.map(c => ({ _id: c._id, name: c.name, totalPurchases: c.totalPurchases, totalSpent: c.totalSpent })).sort((a, b) => b.totalSpent - a.totalSpent).slice(0, 5);
     const salesByMonth = revenueByMonth.map(r => ({ _id: r._id, count: r.count, total: r.total }));
-
     return {
       leadsByStatus,
       clients: { total: db.clients.length, active: db.clients.filter(c => c.status === 'active').length },
-      sales: {
-        total: db.sales.length,
-        revenue: db.sales.reduce((s, sale) => s + sale.total, 0),
-        expenses: totalExpense,
-        profit: totalIncome - totalExpense
-      },
+      sales: { total: db.sales.length, revenue: db.sales.reduce((s, sale) => s + sale.total, 0), expenses: totalExpense, profit: totalIncome - totalExpense },
       products: { total: db.products.length, lowStock: db.products.filter(p => p.quantity <= p.minStock).length },
-      revenueByMonth,
-      salesByMonth,
-      topClients
+      revenueByMonth, salesByMonth, topClients
     };
-  },
+  }),
 
-  getPipeline: () => {
+  getPipeline: wrap(() => {
     const stages = ['lead', 'qualification', 'proposal', 'negotiation', 'closed_won', 'closed_lost'];
     return stages.map(stage => ({
-      stage,
-      count: db.leads.filter(l => l.stage === stage).length,
+      stage, count: db.leads.filter(l => l.stage === stage).length,
       value: db.leads.filter(l => l.stage === stage).reduce((s, l) => s + (l.value || 0), 0),
       leads: db.leads.filter(l => l.stage === stage)
     }));
-  },
+  }),
 
-  getFinanceSummary: (period) => {
+  getFinanceSummary: wrap((period) => {
     let filtered = db.transactions;
     if (period && period !== 'all') {
-      const now = new Date();
-      let start;
+      const now = new Date(); let start;
       if (period === 'week') { start = new Date(now); start.setDate(start.getDate() - 7); }
       else if (period === 'month') { start = new Date(now); start.setMonth(start.getMonth() - 1); }
       else if (period === 'year') { start = new Date(now); start.setFullYear(start.getFullYear() - 1); }
       if (start) filtered = filtered.filter(t => new Date(t.date) >= start);
     }
-
-    const incomes = Object.entries(
-      filtered.filter(t => t.type === 'income').reduce((acc, t) => {
-        acc[t.category] = (acc[t.category] || 0) + t.amount;
-        return acc;
-      }, {})
-    ).map(([_id, total]) => ({ _id, total }));
-
-    const expenses = Object.entries(
-      filtered.filter(t => t.type === 'expense').reduce((acc, t) => {
-        acc[t.category] = (acc[t.category] || 0) + t.amount;
-        return acc;
-      }, {})
-    ).map(([_id, total]) => ({ _id, total }));
-
-    return {
-      incomes,
-      expenses,
-      totalIncome: incomes.reduce((s, i) => s + i.total, 0),
-      totalExpense: expenses.reduce((s, e) => s + e.total, 0),
-      profit: incomes.reduce((s, i) => s + i.total, 0) - expenses.reduce((s, e) => s + e.total, 0)
-    };
-  }
+    const incomes = Object.entries(filtered.filter(t => t.type === 'income').reduce((acc, t) => { acc[t.category] = (acc[t.category] || 0) + t.amount; return acc; }, {})).map(([_id, total]) => ({ _id, total }));
+    const expenses = Object.entries(filtered.filter(t => t.type === 'expense').reduce((acc, t) => { acc[t.category] = (acc[t.category] || 0) + t.amount; return acc; }, {})).map(([_id, total]) => ({ _id, total }));
+    return { incomes, expenses, totalIncome: incomes.reduce((s, i) => s + i.total, 0), totalExpense: expenses.reduce((s, e) => s + e.total, 0), profit: incomes.reduce((s, i) => s + i.total, 0) - expenses.reduce((s, e) => s + e.total, 0) };
+  }),
 };
+
+ensureConnection();
 
 module.exports = dataStore;

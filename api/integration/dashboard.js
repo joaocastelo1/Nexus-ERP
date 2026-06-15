@@ -1,12 +1,12 @@
 const dataStore = require('../_dataStore');
 const cors = require('../_cors');
 
-module.exports = function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (cors(req, res)) return;
 
   try {
     if (req.method === 'GET') {
-      return res.json(dataStore.getDashboardData());
+      return res.json(await dataStore.getDashboardData());
     }
     return res.status(405).json({ message: 'Method not allowed' });
   } catch (err) {

@@ -1,14 +1,14 @@
 const dataStore = require('../_dataStore');
 const cors = require('../_cors');
 
-module.exports = function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (cors(req, res)) return;
 
   try {
     if (req.method === 'GET') {
-      const products = dataStore.getProducts();
-      const sales = dataStore.getSales();
-      const transactions = dataStore.getTransactions();
+      const [products, sales, transactions] = await Promise.all([
+        dataStore.getProducts(), dataStore.getSales(), dataStore.getTransactions()
+      ]);
 
       return res.json({
         totalProducts: products.length,

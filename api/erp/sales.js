@@ -1,14 +1,14 @@
 const dataStore = require('../_dataStore');
 const cors = require('../_cors');
 
-module.exports = function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (cors(req, res)) return;
 
   try {
     if (req.method === 'GET') {
-      const sales = dataStore.getSales();
-      const clients = dataStore.getClients();
-      const products = dataStore.getProducts();
+      const [sales, clients, products] = await Promise.all([
+        dataStore.getSales(), dataStore.getClients(), dataStore.getProducts()
+      ]);
 
       const enrichedSales = sales.map(sale => {
         const client = clients.find(c => c._id === sale.clientId);
@@ -25,10 +25,10 @@ module.exports = function handler(req, res) {
     if (req.method === 'POST') {
       const { clientId, items, paymentMethod, notes } = req.body;
 
-      const client = dataStore.getClientById(clientId);
+      const client = await dataStore.getClientById(clientId);
       if (!client) return res.status(400).json({ message: 'Cliente não encontrado' });
 
-      const allProducts = dataStore.getProducts();
+      const allProducts = await dataStore.getProducts();
       let subtotal = 0;
       const saleItems = [];
 
@@ -47,13 +47,13 @@ module.exports = function handler(req, res) {
           unitPrice: product.salePrice,
           total
         });
-        dataStore.updateProduct(item.productId, { quantity: product.quantity - item.quantity });
+        await dataStore.updateProduct(item.productId, { quantity: product.quantity - item.quantity });
       }
 
       const tax = subtotal * 0.1;
       const total = subtotal + tax;
 
-      const sale = dataStore.createSale({
+      const sale = await dataStore.createSale({
         clientId,
         clientName: client.name,
         items: saleItems,

@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
+const connectDB = require('./config/database');
 const { errorHandler } = require('./middleware/errorHandler');
 const crmRoutes = require('./routes/crm');
 const erpRoutes = require('./routes/erp');
@@ -16,10 +17,14 @@ app.use('/api/crm', crmRoutes);
 app.use('/api/erp', erpRoutes);
 app.use('/api/integration', integrationRoutes);
 
-app.post('/api/reset', (req, res) => {
-  const dataStore = require('./config/dataStore');
-  dataStore.resetData();
-  res.json({ message: 'Dados redefinidos com sucesso' });
+app.post('/api/reset', async (req, res) => {
+  try {
+    const dataStore = require('./config/dataStore');
+    await dataStore.resetData();
+    res.json({ message: 'Dados redefinidos com sucesso' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 app.get('/api/health', (req, res) => {
@@ -29,9 +34,15 @@ app.get('/api/health', (req, res) => {
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`\n  🚀 BizFlow API rodando em http://localhost:${PORT}`);
-  console.log(`  📊 Modo: ${process.env.NODE_ENV || 'development'}\n`);
-});
+
+async function start() {
+  await connectDB();
+  app.listen(PORT, () => {
+    console.log(`\n  🚀 BizFlow API rodando em http://localhost:${PORT}`);
+    console.log(`  📊 Modo: ${process.env.NODE_ENV || 'development'}\n`);
+  });
+}
+
+start();
 
 module.exports = app;

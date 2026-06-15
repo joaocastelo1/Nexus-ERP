@@ -2,8 +2,14 @@
   <img src="https://img.shields.io/badge/Status-Production%20Ready-22C55E?style=flat-square" alt="Status"/>
   <img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="License"/>
   <img src="https://img.shields.io/badge/PRs-Welcome-8B5CF6?style=flat-square" alt="PRs"/>
-  <img src="https://img.shields.io/badge/Made%20with-React-61DAFB?style=flat-square&logo=react" alt="React"/>
-  <img src="https://img.shields.io/badge/Made%20with-TypeScript-3178C6?style=flat-square&logo=typescript" alt="TypeScript"/>
+  <img src="https://img.shields.io/badge/Deploy-Vercel-000?style=flat-square&logo=vercel" alt="Vercel"/>
+  <img src="https://img.shields.io/badge/MongoDB-Atlas-47A248?style=flat-square&logo=mongodb" alt="MongoDB"/>
+  <br/>
+  <img src="https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react" alt="React"/>
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript" alt="TypeScript"/>
+  <img src="https://img.shields.io/badge/Node.js-20-339933?style=flat-square&logo=nodedotjs" alt="Node.js"/>
+  <img src="https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=flat-square&logo=tailwind-css" alt="Tailwind"/>
+  <img src="https://img.shields.io/badge/Mongoose-8-880000?style=flat-square&logo=mongoose" alt="Mongoose"/>
   <br/>
   <img src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2Fjoaocastelo%2Fnexus-erp-crm&countColor=%236366F1&style=flat-square" alt="Visitors"/>
 </div>
@@ -15,19 +21,15 @@
 </p>
 
 <p align="center">
-  <strong>Uma plataforma full-stack empresarial que unifica CRM e ERP em uma única experiência,<br/>com sincronização automática entre módulos, dashboard analítico e arquitetura moderna.</strong>
+  <strong>Uma plataforma full-stack empresarial que unifica CRM e ERP em uma única experiência,<br/>com persistência em MongoDB Atlas, deploy serverless na Vercel e dashboard analítico.</strong>
 </p>
 
-<br/>
-
-<div align="center">
-  <a href="#-visão-geral">Visão Geral</a> •
-  <a href="#-stack-tecnológica">Stack</a> •
-  <a href="#-funcionalidades">Funcionalidades</a> •
-  <a href="#-arquitetura">Arquitetura</a> •
-  <a href="#-como-executar">Executar</a> •
-  <a href="#-deploy">Deploy</a>
-</div>
+<p align="center">
+  <a href="https://nexus-erp.vercel.app">🌐 Demo</a> •
+  <a href="#-stack-tecnológica">🛠 Stack</a> •
+  <a href="#-funcionalidades">✨ Funcionalidades</a> •
+  <a href="#-como-executar">🚀 Executar</a>
+</p>
 
 <br/>
 
@@ -35,19 +37,20 @@
 
 ## 📋 Visão Geral
 
-**Nexus ERP + CRM** é um sistema completo de gestão empresarial desenvolvido para demonstrar proficiência em desenvolvimento full-stack moderno. O projeto simula um ambiente corporativo real onde módulos de CRM (Gestão de Relacionamento com Clientes) e ERP (Planejamento de Recursos Empresariais) operam de forma integrada.
+**Nexus ERP + CRM** é um sistema completo de gestão empresarial full-stack. O projeto demonstra proficiência em desenvolvimento moderno com React 18, TypeScript, Node.js, MongoDB e arquitetura serverless.
 
-### 🎯 Objetivos Técnicos Demonstrados
+### 🎯 Para Recrutadores
 
-| Habilidade | Implementação |
-|-----------|--------------|
-| **React 18 + TypeScript** | Componentes funcionais, hooks, tipagem estática |
-| **Arquitetura Serverless** | API pronta para Vercel Functions |
-| **REST API Design** | Endpoints padronizados com Express |
-| **Gerenciamento de Estado** | Zustand para estado global |
-| **Visualização de Dados** | Recharts com gráficos interativos |
-| **UI/UX Profissional** | Tailwind CSS, responsivo, componentes reutilizáveis |
-| **Integração de Sistemas** | Sincronização CRM ↔ ERP com logs de auditoria |
+| Habilidade | Evidência |
+|-----------|-----------|
+| **React 18 + TypeScript** | Componentes funcionais com hooks, tipagem estática, Zustand para estado global |
+| **Node.js + Express** | API RESTful completa com 20+ endpoints, middleware de erro, CORS |
+| **MongoDB + Mongoose** | Persistência real com fallback para banco em memória — 7 modelos com schemas |
+| **Arquitetura Serverless** | Deploy duplo: Express local + Vercel Functions no mesmo código |
+| **UI/UX Profissional** | Tailwind CSS, recharts, responsivo, componentes reutilizáveis |
+| **Integração de Sistemas** | CRM ↔ ERP com logs de auditoria, conversão de leads, criação de vendas |
+| **Async/Await** | Toda a camada de dados é assíncrona com tratamento de erros |
+| **Git + GitHub** | Commits semânticos, push-to-deploy na Vercel |
 
 <br/>
 
@@ -57,19 +60,21 @@
 
 ### Frontend
 ![React](https://img.shields.io/badge/React_18-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_3-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Zustand](https://img.shields.io/badge/Zustand-593D88?style=for-the-badge&logo=react&logoColor=white)
 ![Recharts](https://img.shields.io/badge/Recharts-FF6B6B?style=for-the-badge&logo=chartdotjs&logoColor=white)
 
 ### Backend
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js_20-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB_Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![Mongoose](https://img.shields.io/badge/Mongoose_8-880000?style=for-the-badge&logo=mongoose&logoColor=white)
 
-### Deploy
+### Infra
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
 
 </div>
 
@@ -78,33 +83,26 @@
 ## ✨ Funcionalidades
 
 ### 🟣 Módulo CRM
-
-| Funcionalidade | Descrição |
-|---------------|-----------|
-| **Gestão de Leads** | CRUD completo com visualização em lista e Kanban |
-| **Pipeline de Vendas** | Funil visual com 6 estágios (Lead → Fechado) |
-| **Clientes** | Cadastro completo com score, histórico e métricas |
-| **Interações** | Registro de chamadas, e-mails, reuniões por cliente |
+- **Gestão de Leads** — CRUD completo com listagem e Kanban
+- **Pipeline de Vendas** — Funil visual com 6 estágios (Lead → Fechado)
+- **Clientes** — Cadastro completo com score, histórico e métricas
+- **Interações** — Registro de chamadas, e-mails, reuniões por cliente
 
 ### 🟢 Módulo ERP
-
-| Funcionalidade | Descrição |
-|---------------|-----------|
-| **Controle de Estoque** | Produtos com SKU, alerta de estoque mínimo, margem |
-| **Gestão de Vendas** | Pedidos vinculados a clientes, cálculo automático de impostos |
-| **Financeiro** | Receitas/despesas, DRE simplificado, fluxo de caixa |
-| **Dashboard** | Métricas integradas com gráficos em tempo real |
+- **Controle de Estoque** — Produtos com SKU, alerta de mínimo, margem
+- **Gestão de Vendas** — Pedidos vinculados a clientes, impostos automáticos
+- **Financeiro** — Receitas/despesas, DRE simplificado, fluxo de caixa
+- **Dashboard Analítico** — Métricas integradas com gráficos Recharts
 
 ### 🔄 Integração CRM ↔ ERP
-
 ```
-Lead Convertido → Cliente Criado no CRM
+Lead Convertido → Cliente no CRM
        ↓
-Venda Fechada → Pedido Criado no ERP
+Venda Fechada → Pedido no ERP
        ↓
-Estoque Debitado → Transação Financeira Registrada
+Estoque Debitado → Transação Financeira
        ↓
-Histórico Unificado → Cliente Visualiza Compras
+Histórico Unificado por Cliente
 ```
 
 <br/>
@@ -113,76 +111,111 @@ Histórico Unificado → Cliente Visualiza Compras
 
 ```
 nexus-erp-crm/
-├── api/                    # 🚀 Vercel Serverless Functions
-│   ├── crm/                #    Endpoints do CRM
-│   ├── erp/                #    Endpoints do ERP
-│   └── integration/        #    Endpoints de integração
-├── backend/                # 🖥 Servidor Express (dev local)
+├── api/                       # 🚀 Vercel Serverless Functions
+│   ├── _dataStore.js          #    Data layer (Mongoose + in-memory fallback)
+│   ├── _db.js                 #    Conexão MongoDB com caching serverless
+│   ├── _models.js             #    Mongoose schemas para Vercel
+│   ├── _seed.js               #    Dados de demonstração
+│   ├── crm/                   #    Endpoints do CRM
+│   ├── erp/                   #    Endpoints do ERP
+│   └── integration/           #    Endpoints de integração
+├── backend/                   # 🖥 Servidor Express (desenvolvimento local)
 │   └── src/
-│       ├── controllers/    # Lógica das rotas
-│       ├── models/         # Schemas Mongoose
-│       ├── routes/         # Definição de rotas
-│       ├── middleware/     # Error handler, validação
-│       └── config/         # Database, dataStore
-├── frontend/               # 🎨 React + Vite + TypeScript
+│       ├── controllers/       #    Lógica de negócio
+│       ├── models/            #    Mongoose models (Lead, Client, Product...)
+│       ├── routes/            #    Definição de rotas REST
+│       ├── middleware/        #    Error handler
+│       └── config/            #    Database e dataStore
+├── frontend/                  # 🎨 React + Vite + TypeScript
 │   └── src/
-│       ├── components/     # Componentes reutilizáveis
-│       │   ├── ui/         # Button, Card, Loading, ErrorBoundary...
-│       │   ├── layout/     # Sidebar, Header, Layout
-│       │   └── features/   # Componentes de domínio
-│       ├── pages/          # Páginas (CRM, ERP, Dashboard)
-│       ├── services/       # API client (Axios)
-│       ├── stores/         # Zustand stores
-│       ├── types/          # TypeScript interfaces
-│       └── hooks/          # Custom hooks
-└── [config files]          # Vercel, Tailwind, TypeScript
+│       ├── components/        #    Componentes reutilizáveis
+│       ├── pages/             #    Páginas (CRM, ERP, Dashboard)
+│       ├── services/          #    Cliente Axios
+│       ├── stores/            #    Zustand
+│       ├── types/             #    Interfaces TypeScript
+│       └── hooks/             #    Custom hooks
+├── vercel.json                # Configuração de deploy Vercel
+└── docker-compose.yml         # PostgreSQL para desenvolvimento local
 ```
 
 <br/>
 
 ## 🚀 Como Executar
 
+### Pré-requisitos
+- Node.js 18+
+- npm 9+
+
+### 1. Clone e instale
 ```bash
-# 1. Clone o repositório
 git clone https://github.com/joaocastelo/nexus-erp-crm.git
 cd nexus-erp-crm
-
-# 2. Instale as dependências
 npm install
-npm --prefix frontend install
-
-# 3. Configure as variáveis de ambiente
-cp .env.example .env
-
-# 4. Inicie o backend (Express na porta 5000)
-npm run dev
-
-# 5. Em outro terminal, inicie o frontend (Vite na porta 3000)
-npm run dev:frontend
-
-# 6. Acesse http://localhost:3000
 ```
 
-> **Nota:** O projeto usa um data store em memória com dados de demonstração. Para persistência real, configure `MONGODB_URI` no `.env`.
+### 2. Configure (opcional — dados persistem em memória por padrão)
+```bash
+cp .env.example .env
+# Edite .env e adicione sua MONGODB_URI do MongoDB Atlas
+```
+
+### 3. Inicie o sistema
+```bash
+npm run dev
+# ✅ Backend: http://localhost:5000
+# ✅ Frontend: http://localhost:3000
+```
+
+### 4. Acesse
+Abra [http://localhost:3000](http://localhost:3000) — dados de demonstração já carregados.
+
+### Comandos úteis
+```bash
+npm run dev            # Frontend + Backend simultaneamente
+npm run dev:backend    # Apenas backend (porta 5000)
+npm run dev:frontend   # Apenas frontend (porta 3000)
+npm run build          # Build de produção do frontend
+```
 
 <br/>
 
-## 🌐 Deploy
+## 🗄️ MongoDB Atlas (Persistência Real)
 
-O projeto está configurado para deploy contínuo na **Vercel**:
+Para dados persistentes entre deploys:
+
+1. Crie uma conta gratuita em [mongodb.com/atlas](https://mongodb.com/atlas)
+2. Crie um cluster **M0** (free tier)
+3. Crie um usuário de banco de dados
+4. Libere acesso de qualquer IP (`0.0.0.0/0`)
+5. Copie a string de conexão
+6. Adicione ao `.env`:
+```env
+MONGODB_URI=mongodb+srv://<usuario>:<senha>@cluster0.xxxxx.mongodb.net/nexus-erp?retryWrites=true&w=majority
+```
+
+> **Sem MongoDB?** O sistema funciona perfeitamente com banco em memória — dados de demonstração são carregados automaticamente.
+
+<br/>
+
+## 🌐 Deploy na Vercel
+
+O deploy é automático via GitHub — cada push para `main` dispara um novo deploy.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
 
 ```bash
-# Deploy manual via CLI
+# Deploy manual
 npm i -g vercel
 vercel --prod
 ```
 
-A configuração de deploy está em `vercel.json`:
-- **Serverless Functions**: API em `/api/*`
-- **Static Assets**: Frontend build em `frontend/dist/`
-- **Rewrites**: SPA routing para React Router
+**Variáveis de ambiente na Vercel** (adicione no dashboard):
+- `MONGODB_URI` — opcional, para persistência
+
+A configuração está em `vercel.json`:
+- Serverless Functions em `/api/*`
+- Frontend estático em `frontend/dist/`
+- SPA routing para React Router
 
 <br/>
 
@@ -215,20 +248,8 @@ A configuração de deploy está em `vercel.json`:
 | `POST` | `/api/integration/convert-lead` | Converter lead em cliente |
 | `POST` | `/api/integration/create-sale` | Criar venda a partir de lead |
 | `GET` | `/api/integration/sync-logs` | Logs de sincronização |
-| `GET` | `/api/integration/dashboard` | Dados do dashboard |
-
-<br/>
-
-## 🧪 Fluxo de Demonstração
-
-```
-1. Crie um Lead → "João Silva, joao@email.com, R$ 15.000"
-2. Mude o estágio do lead pelo pipeline (Lead → Qualificação → Proposta)
-3. Converta o lead em cliente
-4. Crie um produto → "Notebook" com estoque 10
-5. Crie uma venda para o cliente com 2 notebooks
-6. Verifique: estoque = 8, receita gerada, cliente com histórico
-```
+| `GET` | `/api/integration/dashboard` | Dashboard analítico |
+| `POST` | `/api/reset` | Redefinir dados para seed |
 
 <br/>
 
@@ -237,7 +258,7 @@ A configuração de deploy está em `vercel.json`:
 <div align="center">
   <p><strong>João Castelo de Sousa Ferreira</strong></p>
   <p>Desenvolvedor Full Stack</p>
-  
+
   <a href="https://github.com/joaocastelo">
     <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github" alt="GitHub"/>
   </a>
@@ -254,11 +275,11 @@ A configuração de deploy está em `vercel.json`:
 ---
 
 <div align="center">
-  <sub>Built with ❤️ using React, TypeScript, Node.js & Express</sub>
+  <sub>Built with React, TypeScript, Node.js, Express, MongoDB & Mongoose</sub>
   <br/>
-  <sub>© 2024 João Castelo — Todos os direitos reservados</sub>
+  <sub>© 2024 João Castelo</sub>
   <br/>
   <sub>
-    <a href="#-visão-geral">Voltar ao topo ↑</a>
+    <a href="#-visão-geral">↑ Voltar ao topo</a>
   </sub>
 </div>

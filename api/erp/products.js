@@ -1,15 +1,15 @@
 const dataStore = require('../_dataStore');
 const cors = require('../_cors');
 
-module.exports = function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (cors(req, res)) return;
 
   try {
     if (req.method === 'GET') {
-      return res.json(dataStore.getProducts());
+      return res.json(await dataStore.getProducts());
     }
     if (req.method === 'POST') {
-      const product = dataStore.createProduct(req.body);
+      const product = await dataStore.createProduct(req.body);
       return res.status(201).json(product);
     }
     return res.status(405).json({ message: 'Method not allowed' });

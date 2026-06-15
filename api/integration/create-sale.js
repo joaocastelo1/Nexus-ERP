@@ -1,7 +1,7 @@
 const dataStore = require('../_dataStore');
 const cors = require('../_cors');
 
-module.exports = function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (cors(req, res)) return;
 
   try {
@@ -13,25 +13,26 @@ module.exports = function handler(req, res) {
       }
 
       let subtotal = 0;
-      const saleItems = items.map(item => {
-        const product = dataStore.getProductById(item.productId);
+      const saleItems = [];
+      for (const item of items) {
+        const product = await dataStore.getProductById(item.productId);
         if (!product) throw new Error(`Produto ${item.productId} não encontrado`);
         if (product.quantity < item.quantity) throw new Error(`Estoque insuficiente para ${product.name}`);
         const total = product.salePrice * item.quantity;
         subtotal += total;
-        dataStore.updateProduct(item.productId, { quantity: product.quantity - item.quantity });
-        return {
+        await dataStore.updateProduct(item.productId, { quantity: product.quantity - item.quantity });
+        saleItems.push({
           productId: product._id,
           productName: product.name,
           quantity: item.quantity,
           unitPrice: product.salePrice,
           total
-        };
-      });
+        });
+      }
 
-      const client = leadId ? dataStore.getClientById(dataStore.getLeadById(leadId)?.crmClientId) : null;
+      const client = leadId ? await dataStore.getClientById((await dataStore.getLeadById(leadId))?.crmClientId) : null;
       const tax = subtotal * 0.1;
-      const sale = dataStore.createSale({
+      const sale = await dataStore.createSale({
         clientId: client?._id || null,
         clientName: client?.name || 'Cliente Avulso',
         items: saleItems,
@@ -42,7 +43,7 @@ module.exports = function handler(req, res) {
         notes: notes || ''
       });
 
-      dataStore.createTransaction({
+      await dataStore.createTransaction({
         type: 'income',
         category: 'Vendas',
         amount: sale.total,
@@ -53,7 +54,7 @@ module.exports = function handler(req, res) {
         paymentMethod
       });
 
-      dataStore.createSyncLog({
+      await dataStore.createSyncLog({
         event: 'sale.closed',
         source: 'crm',
         target: 'erp',
